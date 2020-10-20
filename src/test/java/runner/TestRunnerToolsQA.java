@@ -10,7 +10,7 @@ import io.cucumber.testng.CucumberOptions;
 		plugin = { "pretty", "html:target/cucumber" },
 		//tags = "@Upload or @DragAndDrop",
 		tags = "@E2E",
-		//tags = "@BrokenImages",
+		//tags = "@Login",
 		strict = true,
 		dryRun = false
 )

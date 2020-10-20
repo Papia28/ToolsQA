@@ -10,6 +10,7 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import webApplication.testingFramework.base.GenericFunctions;
 import webApplication.testingFramework.common.*;
+import webApplication.testingFramework.seleniumBase.ReadConfig;
 
 public class Elements {
 	
@@ -17,7 +18,8 @@ public class Elements {
 	private WebDriver driver = null;
 	private GenericFunctions gen = null;
 	private String query = "select t.first_name, t.last_name from sakila.actor t where t.actor_id = 1";
-	private String exeFilePath = "G:/AutoIt3/Scripts/FileUpload.exe";
+	//private String exeFilePath = "G:/AutoIt3/Scripts/FileUpload.exe";
+	private String exeFilePath = null;
 	private String fileToUpload = "\"G:\\Study Materials\\Selenium\\Basics.txt\"";
 	private String expectedFileName = null;
 	private String baseURL = "https://demoqa.com/";
@@ -60,10 +62,17 @@ public class Elements {
 	@FindBy(css = "p#uploadedFilePath")
 	private WebElement uploadedFile;
 
-	public Elements(WebDriver driver) {
-		this.driver = driver;
-		PageFactory.initElements(driver, this);
-		gen = new GenericFunctions(this.driver);
+	public Elements(WebDriver driver) throws Exception {
+		try {
+			this.driver = driver;
+			PageFactory.initElements(driver, this);
+			gen = new GenericFunctions(this.driver);
+			exeFilePath = ReadConfig.getConfigKeyValue("scriptPath");
+		}
+		catch(Throwable t)
+		{
+			log.fatal("Error in setting up Elements constructor!", t.fillInStackTrace());
+		}
 	}
 
 	public GenericFunctions getGeneric() {

@@ -1,13 +1,14 @@
 package stepDefinitions;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.WebDriver;
 import webApplication.testingFramework.base.TestContext;
+import webApplication.testingFramework.common.JavascriptFunctions;
 import webApplication.testingFramework.pages.Bookstore;
 import webApplication.testingFramework.pages.HomePage;
 
@@ -17,11 +18,13 @@ public final class BookStoreApplicationSteps {
 	private TestContext testContext = null;
 	private HomePage homePage = null;
 	private Bookstore bookstore = null;
+	private WebDriver driver = null;
 
 	public BookStoreApplicationSteps(TestContext context) {
 		try {
 			testContext = context;
 			homePage = testContext.pageObjectManager().homePage();
+			driver = testContext.driver();
 		} catch (Throwable e) {
 			log.error("Error in BookStoreApplicationSteps constructors!", e.fillInStackTrace());
 		}
@@ -43,6 +46,8 @@ public final class BookStoreApplicationSteps {
 	@When("^user clicks Book Store Application$")
 	public void clickBookstore() throws Throwable {
 		try {
+			JavascriptFunctions.scrollToLast(driver);
+			Thread.sleep(5);
 			homePage.hoverOnBookstore();
 			Thread.sleep(5);
 			bookstore = homePage.clickBookstore();

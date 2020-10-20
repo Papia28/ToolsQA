@@ -10,7 +10,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.edge.EdgeDriver;
+//import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
@@ -85,12 +85,10 @@ public class BaseDriverFactory extends BaseDriverManager
 				capabilities.setCapability(CapabilityType.BROWSER_NAME, "chrome");
 				capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
 				capabilities.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true);
-				capabilities.setCapability(CapabilityType.SUPPORTS_JAVASCRIPT, true);				
+				capabilities.setCapability(CapabilityType.SUPPORTS_JAVASCRIPT, true);
 				if(browser.toUpperCase().contains("HEADLESS"))
 				{
-					options.addArguments("--headless");
-					options.addArguments("--disable-gpu");
-					options.addArguments("--window-size=1920,1080");
+					options.addArguments("--headless", "--disable-gpu", "--window-size=1920,1200","--ignore-certificate-errors");
 				}
 				options.merge(capabilities);
 				driver = new ChromeDriver(options);
@@ -133,7 +131,7 @@ public class BaseDriverFactory extends BaseDriverManager
 				capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
 				capabilities.setCapability(CapabilityType.SUPPORTS_JAVASCRIPT, true);
 				capabilities.setCapability(EdgeOptions.CAPABILITY, options);
-				driver = new EdgeDriver(capabilities);
+				//driver = new EdgeDriver(capabilities);
 				driver = Waits.implicitWait(driver);
 			} 
 			else if (browser.toUpperCase().contains("GRID")) 
