@@ -10,7 +10,7 @@ import io.cucumber.testng.CucumberOptions;
 		plugin = { "pretty", "html:target/cucumber" },
 		//tags = "@DragAndDrop or @Buttons or @SelectMenu",
 		tags = "@E2E",
-		//tags = "@Resizing",
+		//tags = "@WebTables1 or @WebTables2 or @WebTables3",
 		strict = true,
 		dryRun = false
 )

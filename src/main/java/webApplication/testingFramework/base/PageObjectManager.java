@@ -32,6 +32,7 @@ public class PageObjectManager
 	private Buttons buttons = null;
 	private Droppable droppable = null;
 	private Resizable resizable = null;
+	private WebTables webTables = null;
 	
 	public PageObjectManager(WebDriver driver) 
 	{
@@ -178,7 +179,7 @@ public class PageObjectManager
 				selectMenu = new SelectMenu(driver);
 			return selectMenu;
 		} catch (Throwable t) {
-			log.error("Error in creating Tooltips object!", t.fillInStackTrace());
+			log.error("Error in creating SelectMenu object!", t.fillInStackTrace());
 			throw t;
 		}
 	}
@@ -189,7 +190,7 @@ public class PageObjectManager
 				buttons = new Buttons(driver);
 			return buttons;
 		} catch (Throwable t) {
-			log.error("Error in creating Tooltips object!", t.fillInStackTrace());
+			log.error("Error in creating Buttons object!", t.fillInStackTrace());
 			throw t;
 		}
 	}
@@ -200,7 +201,7 @@ public class PageObjectManager
 				droppable = new Droppable(driver);
 			return droppable;
 		} catch (Throwable t) {
-			log.error("Error in creating Tooltips object!", t.fillInStackTrace());
+			log.error("Error in creating Droppable object!", t.fillInStackTrace());
 			throw t;
 		}
 	}
@@ -211,7 +212,18 @@ public class PageObjectManager
 				resizable = new Resizable(driver);
 			return resizable;
 		} catch (Throwable t) {
-			log.error("Error in creating Tooltips object!", t.fillInStackTrace());
+			log.error("Error in creating Resizable object!", t.fillInStackTrace());
+			throw t;
+		}
+	}
+
+	public WebTables webTables() throws Throwable {
+		try {
+			if (webTables == null)
+				webTables = new WebTables(driver);
+			return webTables;
+		} catch (Throwable t) {
+			log.error("Error in creating WebTables object!", t.fillInStackTrace());
 			throw t;
 		}
 	}

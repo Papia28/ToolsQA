@@ -114,6 +114,20 @@ public abstract class BaseFunctions {
 		}
 	}
 
+	// method to find list of elements
+	public List<WebElement> getElements(WebElement element, String locatorType, String locatorValue) throws Throwable {
+		try {
+			List<WebElement> elements = element.findElements(getLocator(locatorType, locatorValue));
+			log.debug("Elements : \n" + elements);
+			Thread.sleep(100);
+			return elements;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error in getElements()");
+			throw e;
+		}
+	}
+
 	// method to return username
 	public String returnUsername() throws Throwable {
 		try {

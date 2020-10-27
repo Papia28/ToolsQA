@@ -33,7 +33,10 @@ public class Elements {
     private WebElement elemUploadAndDownload;
 
     @FindBy(xpath = "//span[text()='Buttons']")
-    private WebElement buttons;
+    private WebElement elemButtons;
+
+    @FindBy(xpath = "//span[text()='Web Tables']")
+    private WebElement elemWebTables;
 
     public Elements(WebDriver driver) throws Throwable {
         try {
@@ -141,7 +144,7 @@ public class Elements {
     public void hoverOnButtons() throws Throwable {
         try {
             JavascriptFunctions.scrollDownByPixelValue(driver, 300);
-            ActionFunctions.hoverOnElement(driver, buttons);
+            ActionFunctions.hoverOnElement(driver, elemButtons);
         } catch (NoSuchElementException e) {
             log.error("Element not found!", e.fillInStackTrace());
             throw e;
@@ -153,7 +156,32 @@ public class Elements {
 
     public void clickButtons() throws Throwable {
         try {
-            gen.click(buttons);
+            gen.click(elemButtons);
+        } catch (NoSuchElementException e) {
+            log.error("Element not found!", e.fillInStackTrace());
+            throw e;
+        } catch (Throwable t) {
+            log.error("Error in locating element!", t.fillInStackTrace());
+            throw t;
+        }
+    }
+
+    public void hoverOnWebTables() throws Throwable {
+        try {
+            JavascriptFunctions.scrollDownByPixelValue(driver, 200);
+            ActionFunctions.hoverOnElement(driver, elemWebTables);
+        } catch (NoSuchElementException e) {
+            log.error("Element not found!", e.fillInStackTrace());
+            throw e;
+        } catch (Throwable t) {
+            log.error("Error in locating element!", t.fillInStackTrace());
+            throw t;
+        }
+    }
+
+    public void clickWebTables() throws Throwable {
+        try {
+            gen.click(elemWebTables);
         } catch (NoSuchElementException e) {
             log.error("Element not found!", e.fillInStackTrace());
             throw e;

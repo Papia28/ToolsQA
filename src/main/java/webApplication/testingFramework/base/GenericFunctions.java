@@ -332,7 +332,7 @@ public class GenericFunctions extends BaseFunctions {
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------------------------
 
-	// method to navigate back
+	// method to navigate forward
 	public void navigateForward() throws Throwable {
 		try {
 			Thread.sleep(5);
@@ -348,7 +348,7 @@ public class GenericFunctions extends BaseFunctions {
 	}
 	//-----------------------------------------------------------------------------------------------------------------------------------------------
 
-	// method to navigate back
+	// method to refresh browser
 	public void refresh() throws Throwable {
 		try {
 			Thread.sleep(5);
@@ -359,6 +359,80 @@ public class GenericFunctions extends BaseFunctions {
 		catch (Throwable e) {
 			e.printStackTrace();
 			log.error("Error in refresh().");
+			throw e;
+		}
+	}
+	//-----------------------------------------------------------------------------------------------------------------------------------------------
+
+	// method to check if element is enabled or not
+	public void verifyElementEnabled(WebElement element) throws Throwable {
+		try {
+			log.debug("Verifying " + element + "is enabled or not");
+			//assert visibility of element
+			JavascriptFunctions.highlightElement(driver, element);
+			Thread.sleep(5);
+			AssertionsAndVerifications.assertTrueValue(element.isEnabled());
+			log.info("Success! " + element + " is enabled!");
+		}
+		catch(AssertionError e)
+		{
+			e.printStackTrace();
+			log.error("Failure! " + element + " is not enabled!");
+			throw e;
+		}
+		catch (Throwable e) {
+			e.printStackTrace();
+			log.error("Error in verifyElementEnabled().");
+			throw e;
+		}
+	}
+	//-----------------------------------------------------------------------------------------------------------------------------------------------
+
+	// method to check if element is enabled or not
+	public void verifyElementEnabledViaAttributes(WebElement element, String attributeName) throws Throwable {
+		try {
+			log.debug("Verifying " + element + "is enabled or not");
+			//assert visibility of element
+			JavascriptFunctions.highlightElement(driver, element);
+			Thread.sleep(5);
+			AssertionsAndVerifications.assertFalseValue(getAttribute(element, attributeName).contains("disabled"));
+			log.info("Success! " + element + " is enabled!");
+		}
+		catch(AssertionError e)
+		{
+			e.printStackTrace();
+			log.error("Failure! " + element + " is disabled!");
+			throw e;
+		}
+		catch (Throwable e) {
+			e.printStackTrace();
+			log.error("Error in verifyElementDisabled().");
+			throw e;
+		}
+	}
+	//-----------------------------------------------------------------------------------------------------------------------------------------------
+
+	// method to check if element is clickable or not
+	public boolean isElementClickableViaAttributes(WebElement element, String attributeName) throws Throwable {
+		try {
+			log.debug("Verifying " + element + "is clickable or not");
+			//assert visibility of element
+			verifyElementVisible(element);
+			Thread.sleep(5);
+			JavascriptFunctions.highlightElement(driver, element);
+			Thread.sleep(5);
+			verifyElementEnabledViaAttributes(element, attributeName);
+			log.info("Success! " + element + " is clickable!");
+			return true;
+		}
+		catch(AssertionError e)
+		{
+			log.error("Failure! " + element + " is not clickable!");
+			return false ;
+		}
+		catch (Throwable e) {
+			e.printStackTrace();
+			log.error("Error in verifyElementClickable().");
 			throw e;
 		}
 	}
