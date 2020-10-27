@@ -1,4 +1,4 @@
-package webApplication.testingFramework.pages;
+package webApplication.testingFramework.pages.widgets;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -7,14 +7,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
 import webApplication.testingFramework.base.GenericFunctions;
 import webApplication.testingFramework.common.ActionFunctions;
 import webApplication.testingFramework.common.AssertionsAndVerifications;
 import webApplication.testingFramework.common.JavascriptFunctions;
 
-public class Widgets {
-	
+public class Tooltips {
+
 	public static Logger log = LogManager.getLogger(GenericFunctions.class.getName());
 	private WebDriver driver = null;
 	private GenericFunctions gen = null;
@@ -23,14 +22,8 @@ public class Widgets {
 	private String text1TooltipText = "You hovered over the Contrary";
 	private String text2TooltipText = "You hovered over the 1.10.32";
 
-	@FindBy(xpath = "(//div[text()='Widgets'])[1]")
-	private WebElement widgetsHeader;
-
 	@FindBy(xpath = "//div[text()='Tool Tips']")
 	private WebElement tooltipHeader;
-
-	@FindBy(xpath = "//span[text()='Tool Tips']")
-	private WebElement tooltips;
 
 	@FindBy(css = "button#toolTipButton")
 	private WebElement button;
@@ -56,7 +49,7 @@ public class Widgets {
 	@FindBy(css = "div#sectionToolTip")
 	private WebElement text2Tooltip;
 
-	public Widgets(WebDriver driver) {
+	public Tooltips(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 		gen = new GenericFunctions(this.driver);
@@ -66,51 +59,12 @@ public class Widgets {
 		return gen;
 	}
 
-	public void verifyWidgetsHeader() throws Throwable {
-		try {
-			gen.isElementVisible(widgetsHeader);
-		} catch (AssertionError e) {
-			log.error("Failure! Values do not match!", e.fillInStackTrace());
-			throw e;
-		} catch (NoSuchElementException e) {
-			log.error("Element not found!", e.fillInStackTrace());
-			throw e;
-		} catch (Throwable t) {
-			log.error("Error in locating element!", t.fillInStackTrace());
-			throw t;
-		}
-	}
-
 	public void verifyTooltipHeader() throws Throwable {
 		try {
-			gen.isElementVisible(tooltipHeader);
+			gen.verifyElementVisible(tooltipHeader);
 		} catch (AssertionError e) {
 			log.error("Failure! Values do not match!", e.fillInStackTrace());
 			throw e;
-		} catch (NoSuchElementException e) {
-			log.error("Element not found!", e.fillInStackTrace());
-			throw e;
-		} catch (Throwable t) {
-			log.error("Error in locating element!", t.fillInStackTrace());
-			throw t;
-		}
-	}
-
-	public void hoverOnTooltips() throws Throwable {
-		try {
-			ActionFunctions.hoverOnElement(driver, tooltips);
-		} catch (NoSuchElementException e) {
-			log.error("Element not found!", e.fillInStackTrace());
-			throw e;
-		} catch (Throwable t) {
-			log.error("Error in locating element!", t.fillInStackTrace());
-			throw t;
-		}
-	}
-
-	public void clickTooltips() throws Throwable {
-		try {
-			gen.click(tooltips);
 		} catch (NoSuchElementException e) {
 			log.error("Element not found!", e.fillInStackTrace());
 			throw e;

@@ -163,7 +163,7 @@ public class GenericFunctions extends BaseFunctions {
 	//-----------------------------------------------------------------------------------------------------------------------------------------------
 	// method to check element visibility
 	
-	public void isElementVisible(WebElement element) throws Throwable {
+	public void verifyElementVisible(WebElement element) throws Throwable {
 		try {
 			log.debug("Verifying " + element + "is visible or not");
 			//assert visibility of element
@@ -189,7 +189,7 @@ public class GenericFunctions extends BaseFunctions {
 
 	// method to check element visibility
 
-	public void isElementNotVisible(WebElement element) throws Throwable {
+	public void verifyElementNotVisible(WebElement element) throws Throwable {
 		try {
 			log.debug("Verifying " + element + "is visible or not");
 			//assert visibility of element

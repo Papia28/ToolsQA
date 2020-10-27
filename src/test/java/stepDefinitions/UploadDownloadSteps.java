@@ -1,16 +1,16 @@
 package stepDefinitions;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.WebDriver;
-
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.WebDriver;
 import webApplication.testingFramework.base.TestContext;
 import webApplication.testingFramework.common.JavascriptFunctions;
-import webApplication.testingFramework.pages.Elements;
 import webApplication.testingFramework.pages.HomePage;
+import webApplication.testingFramework.pages.elements.Elements;
+import webApplication.testingFramework.pages.elements.UploadDownload;
 
 public class UploadDownloadSteps {
 	
@@ -19,13 +19,16 @@ public class UploadDownloadSteps {
 	private HomePage homePage = null;
 	private Elements elements = null;
 	private TestContext testContext = null;
+	private UploadDownload uploadDownload = null;
 	
 	public UploadDownloadSteps(TestContext context)
 	{		
 		try {
 			testContext = context;
 			homePage = testContext.pageObjectManager().homePage();
-			driver = testContext.driver();
+			elements = testContext.pageObjectManager().elements();
+			uploadDownload = testContext.pageObjectManager().uploadDownload();
+					driver = testContext.driver();
 		} 
 		catch (Throwable e) 
 		{
@@ -40,7 +43,7 @@ public class UploadDownloadSteps {
 			JavascriptFunctions.scrollDownByPixelValue(driver, 300);
 			homePage.hoverOnElements();
 			Thread.sleep(10);
-			elements = homePage.clickElements();
+			homePage.clickElements();
 			Thread.sleep(50);
 		}
 		catch(Throwable t)
@@ -51,7 +54,7 @@ public class UploadDownloadSteps {
 		}		
 	}
 	
-	@And("^user clicks on Upload and Download$")
+	@When("^user clicks on Upload and Download$")
 	public void clickUploadDownload() throws Throwable
 	{
 		try {
@@ -72,14 +75,46 @@ public class UploadDownloadSteps {
 			throw t;
 		}		
 	}
+
+	@And("^user clicks on download button$")
+	public void clickDownload() throws Throwable
+	{
+		try {
+			uploadDownload.hoverOnDownload();
+			Thread.sleep(5);
+			uploadDownload.clickDownload();
+			Thread.sleep(50);
+		}
+		catch(Throwable t)
+		{
+			t.printStackTrace();
+			log.error("Error while clicking choose a file!");
+			throw t;
+		}
+	}
+
+	@Then("^file is downloaded successfully$")
+	public void verifyDownload() throws Throwable
+	{
+		try {
+			uploadDownload.verifyDownloadedFile();
+			Thread.sleep(50);
+		}
+		catch(Throwable t)
+		{
+			t.printStackTrace();
+			log.error("Error while clicking choose a file!");
+			throw t;
+		}
+	}
 	
-	@And("^user clicks on choose a file$")
+	@When("^user clicks on choose a file$")
 	public void chooseFile() throws Throwable
 	{
 		try {
-			elements.hoverOnSelectFile();
+			uploadDownload.hoverOnSelectFile();
 			Thread.sleep(5);
-			elements.clickSelectFile();
+			uploadDownload.clickSelectFile();
 			Thread.sleep(2000);
 		}
 		catch(Throwable t)
@@ -93,8 +128,8 @@ public class UploadDownloadSteps {
 	@And("^user uploads a file$")
 	public void uploadFile() throws Throwable
 	{
-		try {			
-			elements.uploadFile();
+		try {
+			uploadDownload.uploadFile();
 			Thread.sleep(50);
 		}
 		catch(Throwable t)
@@ -109,9 +144,9 @@ public class UploadDownloadSteps {
 	public void verifyFileUpload() throws Throwable
 	{
 		try {
-			elements.isUploadedFileVisible();
-			Thread.sleep(5);			
-			elements.verifyUploadedFile(elements.getUploadedFileName());
+			uploadDownload.isUploadedFileVisible();
+			Thread.sleep(5);
+			uploadDownload.verifyUploadedFile(uploadDownload.getUploadedFileName());
 			Thread.sleep(50);
 		}
 		catch(Throwable t)

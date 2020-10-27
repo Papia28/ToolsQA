@@ -1,23 +1,25 @@
 package stepDefinitions;
 
+import io.cucumber.java.en.And;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import io.cucumber.java.en.And;
 import webApplication.testingFramework.base.TestContext;
-import webApplication.testingFramework.pages.Elements;
+import webApplication.testingFramework.pages.elements.Elements;
+import webApplication.testingFramework.pages.elements.Textbox;
 
 public final class TextboxSteps {
 	
 	public static Logger log = LogManager.getLogger(UploadDownloadSteps.class.getName());
 	private Elements elements = null;
 	private TestContext testContext = null;
+	private Textbox textbox = null;
 	
 	public TextboxSteps(TestContext context)
 	{		
 		try {
 			testContext = context;
 			elements = testContext.pageObjectManager().elements();
+			textbox = testContext.pageObjectManager().textbox();
 		} 
 		catch (Throwable e) 
 		{
@@ -46,10 +48,10 @@ public final class TextboxSteps {
 	public void writeFullName() throws Throwable
 	{
 		try {
-			elements.hoverOnFullname();
-			Thread.sleep(5);	
-			elements.clickFullname();		
-			elements.writeFullname();
+			textbox.hoverOnFullname();
+			Thread.sleep(5);
+			textbox.clickFullname();
+			textbox.writeFullname();
 		}
 		catch(Throwable t)
 		{

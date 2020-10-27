@@ -103,7 +103,7 @@ public class ExtentReportHandler {
 		}
 	}
 	
-	public static ExtentTest createStepInfo(String keyword, String stepName) throws Throwable
+	public static com.aventstack.extentreports.ExtentTest createStepInfo(String keyword, String stepName) throws Throwable
 	{
 		try {
 			log.info("Creating step info.");

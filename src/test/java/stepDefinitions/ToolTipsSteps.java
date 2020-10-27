@@ -1,33 +1,34 @@
 package stepDefinitions;
 
+import com.aventstack.extentreports.ExtentTest;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
-
-import com.aventstack.extentreports.ExtentTest;
-
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
 import webApplication.testingFramework.base.TestContext;
-import webApplication.testingFramework.common.JavascriptFunctions;
 import webApplication.testingFramework.common.Screenshots;
 import webApplication.testingFramework.common.StringUtility;
 import webApplication.testingFramework.pages.HomePage;
-import webApplication.testingFramework.pages.Widgets;
+import webApplication.testingFramework.pages.widgets.Tooltips;
+import webApplication.testingFramework.pages.widgets.Widgets;
 import webApplication.testingFramework.reporting.ExtentReportHandler;
 
-public final class ToolTips {
+public final class ToolTipsSteps {
 	
-	public static Logger log = LogManager.getLogger(ToolTips.class.getName());
+	public static Logger log = LogManager.getLogger(ToolTipsSteps.class.getName());
 	private TestContext testContext = null;
 	private HomePage homePage = null;
 	private Widgets widgets = null;
+	private Tooltips tooltips = null;
 	private WebDriver driver = null;
 
-	public ToolTips(TestContext context) {
+	public ToolTipsSteps(TestContext context) {
 		try {
 			testContext = context;
 			homePage = testContext.pageObjectManager().homePage();
+			widgets = testContext.pageObjectManager().widgets();
+			tooltips = testContext.pageObjectManager().tooltips();
 			driver = testContext.driver();
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -42,12 +43,10 @@ public final class ToolTips {
 		Thread.sleep(200);
 
 		try {
-			JavascriptFunctions.scrollDownByPixelValue(driver, 300);
-
 			// hover on the element to be clicked
 			homePage.hoverOnWidgets();
 			Thread.sleep(10);
-			widgets = homePage.clickWidgets();
+			homePage.clickWidgets();
 
 			// take screenshot of the element to be clicked
 			stepInfo.addScreenCaptureFromPath(Screenshots.saveScreenshot(driver, "Widgets_Click"));
@@ -86,7 +85,6 @@ public final class ToolTips {
 	@When("^user clicks Tooltips$")
 	public void clickTooltips() throws Throwable {
 		try {
-			JavascriptFunctions.scrollToLast(driver);
 			Thread.sleep(10);
 			widgets.hoverOnTooltips();
 			Thread.sleep(10);
@@ -102,7 +100,7 @@ public final class ToolTips {
 	@Then("^tooltips page is displayed$")
 	public void verifyTooltipPage() throws Throwable {
 		try {
-			widgets.verifyTooltipHeader();
+			tooltips.verifyTooltipHeader();
 			Thread.sleep(50);
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -115,7 +113,7 @@ public final class ToolTips {
 	public void hoverButton() throws Throwable {
 		try {
 			Thread.sleep(500);
-			widgets.hoverOnButton();
+			tooltips.hoverOnButton();
 			Thread.sleep(1000);
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -127,7 +125,7 @@ public final class ToolTips {
 	@Then("^button tooltip is displayed$")
 	public void buttonTooltipDisplayed() throws Throwable {
 		try {
-			widgets.verifyButtonTooltip();
+			tooltips.verifyButtonTooltip();
 			Thread.sleep(1000);
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -139,7 +137,7 @@ public final class ToolTips {
 	@When("^user hovers on textbox$")
 	public void hoverTextbox() throws Throwable {
 		try {
-			widgets.hoverOnTextbox();
+			tooltips.hoverOnTextbox();
 			Thread.sleep(1000);
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -151,7 +149,7 @@ public final class ToolTips {
 	@Then("^textbox tooltip is displayed$")
 	public void textboxTooltipDisplayed() throws Throwable {
 		try {
-			widgets.verifyTextboxTooltip();
+			tooltips.verifyTextboxTooltip();
 			Thread.sleep(1000);
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -163,7 +161,7 @@ public final class ToolTips {
 	@When("^user hovers on text1$")
 	public void hoverText1() throws Throwable {
 		try {
-			widgets.hoverOnText1();
+			tooltips.hoverOnText1();
 			Thread.sleep(1000);
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -175,7 +173,7 @@ public final class ToolTips {
 	@Then("^text1 tooltip is displayed$")
 	public void text1TooltipDisplayed() throws Throwable {
 		try {
-			widgets.verifyText1Tooltip();
+			tooltips.verifyText1Tooltip();
 			Thread.sleep(1000);
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -187,7 +185,7 @@ public final class ToolTips {
 	@When("^user hovers on text2$")
 	public void hoverText2() throws Throwable {
 		try {
-			widgets.hoverOnText2();
+			tooltips.hoverOnText2();
 			Thread.sleep(1000);
 		} catch (Throwable e) {
 			e.printStackTrace();
@@ -199,7 +197,7 @@ public final class ToolTips {
 	@Then("^text2 tooltip is displayed$")
 	public void text2TooltipDisplayed() throws Throwable {
 		try {
-			widgets.verifyText2Tooltip();
+			tooltips.verifyText2Tooltip();
 			Thread.sleep(1000);
 		} catch (Throwable e) {
 			e.printStackTrace();

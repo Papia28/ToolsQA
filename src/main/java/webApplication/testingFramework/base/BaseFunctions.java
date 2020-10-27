@@ -1,15 +1,17 @@
 package webApplication.testingFramework.base;
 
-import java.util.List;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
 import webApplication.testingFramework.seleniumBase.ReadConfig;
+
+import java.util.List;
 
 public abstract class BaseFunctions {
 
+	private static Logger log = LogManager.getLogger(BaseFunctions.class.getName());
 	private WebDriver driver = null;
 	
 	//constructor for BaseFunctions	
@@ -87,11 +89,8 @@ public abstract class BaseFunctions {
 	// method to find element
 	public WebElement getElement(String locatorType, String locatorValue) throws Throwable {
 		try {
-			//TODO
-			String actuallocatorValue = null;
-			By locator = getLocator(locatorType, actuallocatorValue);
-			System.out.println(locator);
-			WebElement element = driver.findElement(locator);
+			WebElement element = driver.findElement(getLocator(locatorType, locatorValue));
+			log.debug("Element : " + element);
 			Thread.sleep(100);
 			return element;
 		} catch (Exception e) {
@@ -104,11 +103,8 @@ public abstract class BaseFunctions {
 	// method to find list of elements
 	public List<WebElement> getElements(String locatorType, String locatorValue) throws Throwable {
 		try {
-			//TODO
-			String actuallocatorValue = null;
-			By locator = getLocator(locatorType, actuallocatorValue);
-			System.out.println(locator);
-			List<WebElement> elements = driver.findElements(locator);
+			List<WebElement> elements = driver.findElements(getLocator(locatorType, locatorValue));
+			log.debug("Elements : \n" + elements);
 			Thread.sleep(100);
 			return elements;
 		} catch (Exception e) {

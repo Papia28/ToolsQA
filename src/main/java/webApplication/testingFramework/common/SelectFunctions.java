@@ -1,7 +1,5 @@
 package webApplication.testingFramework.common;
 
-import java.util.List;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.Keys;
@@ -9,6 +7,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
+import webApplication.testingFramework.base.GenericFunctions;
+
+import java.util.List;
 
 public class SelectFunctions {
 	
@@ -19,14 +20,11 @@ public class SelectFunctions {
 	
 		public static void singleSelectByText(WebElement element, String text) throws Throwable {
 			try {
-				//JavascriptFunctions.highlightElement(driver, element);
 				//create Select class object of the dropdown element
 				Select dropDown = new Select(element);
-				Thread.sleep(100);
-				
 				//select the option of the dropdown via text
 				dropDown.selectByVisibleText(text);
-				Thread.sleep(100);
+				Thread.sleep(50);
 			} 
 			catch (Throwable e) {
 				e.printStackTrace();
@@ -36,7 +34,43 @@ public class SelectFunctions {
 		}
 		
 		//-----------------------------------------------------------------------------------------------------------------------------------------------
-		//method to select an item from dropdown by value
+	// method to select an item from dropdown by visible text
+
+	public static void selectSingleOption(GenericFunctions gen, String locatorValue) throws Throwable {
+		try {
+			WebElement element = gen.getElement("xpath", locatorValue);
+			gen.click(element);
+			Thread.sleep(50);
+		}
+		catch (Throwable e) {
+			e.printStackTrace();
+			log.error("Error in selectDropdownByText().");
+			throw e;
+		}
+	}
+
+	//-----------------------------------------------------------------------------------------------------------------------------------------------
+	// method to select an item from dropdown by visible text
+
+	public static void selectMultipleOptions(GenericFunctions gen, String options, String formatter, String values) throws Throwable {
+		try {
+			String valuesArray [] = values.split(",");
+			for(String s : valuesArray)
+			{
+				String locatorValue = options + s.trim() + formatter;
+				selectSingleOption(gen, locatorValue);
+			}
+			Thread.sleep(100);
+		}
+		catch (Throwable e) {
+			e.printStackTrace();
+			log.error("Error in selectDropdownByText().");
+			throw e;
+		}
+	}
+
+	//-----------------------------------------------------------------------------------------------------------------------------------------------
+	// method to select an item from dropdown by value
 		
 		public static void singleSelectByValue(WebElement element, String value) throws Throwable {
 			try {
@@ -56,27 +90,9 @@ public class SelectFunctions {
 		}
 		
 		//-----------------------------------------------------------------------------------------------------------------------------------------------
-		//verify single selected value
-		
-		public static void verifySingleDropdownResult(WebElement element, String expected) throws Throwable {
-			try {
-				String actualSetence = element.getText();
-				String[] actual = actualSetence.split("-");
-				
-				//assert selected and displayed result value
-				AssertionsAndVerifications.assertEqualValue(actual[1].trim(), expected.trim());
-			}
-			catch(Throwable e) {
-				e.printStackTrace();
-				log.error("Error in verifySingleSelected().");
-				throw e;
-			}
-		}
-		
-		//-----------------------------------------------------------------------------------------------------------------------------------------------
 		//method to verify is selection is multi select
 		
-		public static void checkMultiSelect(WebElement element) throws Throwable {
+		public static void verifyMultiSelect(WebElement element) throws Throwable {
 			try {				
 				//create Select class object of the dropdown element
 				Select dropDown = new Select(element);
@@ -87,7 +103,7 @@ public class SelectFunctions {
 			}
 			catch(AssertionError e) {
 				e.printStackTrace();
-				log.info("Dropdown is Single Select type.");
+				log.error("Dropdown is Single Select type.");
 				throw e;
 			}			
 			catch(Throwable e) {
@@ -112,12 +128,12 @@ public class SelectFunctions {
 				//select the options of the dropdown by value
 				for(int i=0; i< valuesArray.length; i++)
 				{
-					Thread.sleep(300);
+					Thread.sleep(100);
 					actions.keyDown(Keys.ALT);
 					dropdown.selectByValue(valuesArray[i].trim());
 				}
 				
-				//actions.keyUp(Keys.ALT);
+				actions.keyUp(Keys.ALT);
 				
 				//after selecting all options return the dropdown 
 				return dropdown;			
@@ -130,6 +146,38 @@ public class SelectFunctions {
 		}
 		
 		//-----------------------------------------------------------------------------------------------------------------------------------------------
+	//method to do multiple selection by Value
+
+	public static Select multiSelectByText(WebDriver driver, WebElement element, String values) throws Throwable {
+		try {
+			//put the actual values to be selected into a String array
+			String [] valuesArray = values.split(",");
+
+			//create Select class object of the dropdown element
+			Select dropdown = new Select(element);
+			Actions actions = new Actions(driver);
+
+			//select the options of the dropdown by value
+			for(String s : valuesArray)
+			{
+				Thread.sleep(50);
+				actions.keyDown(Keys.CONTROL);
+				dropdown.selectByVisibleText(s.trim());
+			}
+
+			actions.keyUp(Keys.CONTROL);
+
+			//after selecting all options return the dropdown
+			return dropdown;
+		}
+		catch(Throwable e) {
+			e.printStackTrace();
+			log.error("Error in multiSelectByValue().");
+			throw e;
+		}
+	}
+
+	//-----------------------------------------------------------------------------------------------------------------------------------------------
 		//method to check first option selected by Select class object
 		
 		public static void verifyFirstSelected(WebElement result, Select dropdown, String values) throws Throwable {

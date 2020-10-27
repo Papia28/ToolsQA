@@ -7,9 +7,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
 import webApplication.testingFramework.base.GenericFunctions;
 import webApplication.testingFramework.common.ActionFunctions;
+import webApplication.testingFramework.common.JavascriptFunctions;
 
 public class HomePage 
 {	
@@ -64,11 +64,10 @@ public class HomePage
 		}
 	}
 	
-	public Elements clickElements() throws Throwable
+	public void clickElements() throws Throwable
 	{
 		try {
 			gen.click(elements);
-			return new Elements(driver);
 		} 
 		catch (NoSuchElementException e) 
 		{
@@ -99,11 +98,10 @@ public class HomePage
 		}
 	}
 	
-	public AlertsFramesWindows clickAlerts() throws Throwable
+	public void clickAlerts() throws Throwable
 	{
 		try {			
 			gen.click(alerts);
-			return new AlertsFramesWindows(driver);
 		}
 		catch(NoSuchElementException e)
 		{
@@ -120,6 +118,7 @@ public class HomePage
 	public void hoverOnWidgets()throws Throwable
 	{
 		try {
+			JavascriptFunctions.scrollDownByPixelValue(driver, 300);
 			ActionFunctions.hoverOnElement(driver, widgets);
 		}
 		catch (NoSuchElementException e) 
@@ -134,11 +133,10 @@ public class HomePage
 		}
 	}
 	
-	public Widgets clickWidgets() throws Throwable
+	public void clickWidgets() throws Throwable
 	{
 		try {			
-			gen.click(widgets);	
-			return new Widgets(driver);
+			gen.click(widgets);
 		}
 		catch(NoSuchElementException e)
 		{
@@ -155,6 +153,7 @@ public class HomePage
 	public void hoverOnInteractions()throws Throwable
 	{
 		try {
+			JavascriptFunctions.scrollDownByPixelValue(driver, 300);
 			ActionFunctions.hoverOnElement(driver, interactions);
 		}
 		catch (NoSuchElementException e) 
@@ -169,11 +168,10 @@ public class HomePage
 		}
 	}
 	
-	public Interactions clickInteractions() throws Throwable
+	public void clickInteractions() throws Throwable
 	{
 		try {			
-			gen.click(interactions);	
-			return new Interactions(driver);
+			gen.click(interactions);
 		}
 		catch(NoSuchElementException e)
 		{
@@ -204,11 +202,10 @@ public class HomePage
 		}
 	}
 	
-	public Bookstore clickBookstore() throws Throwable
+	public void clickBookstore() throws Throwable
 	{
 		try {			
-			gen.click(bookStore);	
-			return new Bookstore(driver);
+			gen.click(bookStore);
 		}
 		catch(NoSuchElementException e)
 		{

@@ -1,18 +1,11 @@
 package webApplication.testingFramework.common;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.SQLTimeoutException;
-import java.sql.Statement;
-
+import com.mysql.cj.jdbc.exceptions.CommunicationsException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import com.mysql.cj.jdbc.exceptions.CommunicationsException;
-
 import webApplication.testingFramework.seleniumBase.ReadConfig;
+
+import java.sql.*;
 
 public class JDBC 
 {
@@ -30,7 +23,7 @@ public class JDBC
 	public static void openConnection() throws Throwable 
 	{
 		try {
-			log.debug("Establising database connection.");
+			log.debug("Establishing database connection.");
 			username = ReadConfig.getConfigKeyValue("DBusername");
 			password = ReadConfig.getConfigKeyValue("DBpassword");
 			host = ReadConfig.getConfigKeyValue("host");
@@ -40,7 +33,7 @@ public class JDBC
 			url = "jdbc:mysql://" + host + ":" + port + "/" + dbName;
 			log.info(url);
 			connection = DriverManager.getConnection(url, username, password);
-			log.info("Database connection successfull!");
+			log.info("Database connection successful!");
 		} 
 		catch (CommunicationsException t) 
 		{
@@ -76,7 +69,7 @@ public class JDBC
 			log.debug("Running given query.");
 			statement = connection.createStatement();
 			resultSet = statement.executeQuery(query);
-			log.info("Query run successfull!");
+			log.info("Query run successful!");
 			log.debug("Getting required data.");			
 			if (resultSet.next()) 
 			{

@@ -20,9 +20,23 @@ When user clicks Textbox
 Then user writes fullname
 
 @E2E
-@Upload
-Scenario: Test the uploading a file functionality
-Then user clicks on Upload and Download
-And user clicks on choose a file
+@DownloadAndUpload
+Scenario: Test uploading a file functionality
+When user clicks on Upload and Download
+  And user clicks on download button
+  Then file is downloaded successfully
+When user clicks on choose a file
 And user uploads a file
-And chosen file is uploaded
+Then chosen file is uploaded
+
+  @E2E
+  @Buttons
+  Scenario: Test various clicking functions on buttons
+    When user clicks Buttons
+    Then Buttons page is displayed
+    When user double cliks on button1
+    Then double click message appears
+    When user right clicks button2
+    Then right click message appears
+    When user clicks button3
+    Then dynamic click message appears

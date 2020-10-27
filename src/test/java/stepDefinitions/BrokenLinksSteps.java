@@ -8,13 +8,15 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import webApplication.testingFramework.base.TestContext;
 import webApplication.testingFramework.common.JavascriptFunctions;
-import webApplication.testingFramework.pages.Elements;
+import webApplication.testingFramework.pages.elements.BrokenLinksImages;
+import webApplication.testingFramework.pages.elements.Elements;
 
 public class BrokenLinksSteps {
 	
 	public static Logger log = LogManager.getLogger(BrokenLinksSteps.class.getName()); 
 	private TestContext testContext = null;
 	private Elements elements = null;
+	private BrokenLinksImages brokenLinksImages = null;
 	private WebDriver driver = null;	
 	
 	public BrokenLinksSteps(TestContext context)
@@ -22,6 +24,7 @@ public class BrokenLinksSteps {
 		try {
 			testContext = context;
 			elements = testContext.pageObjectManager().elements();
+			brokenLinksImages = testContext.pageObjectManager().brokenLinksImages();
 			driver = testContext.driver();
 		} 
 		catch (Throwable e) 
@@ -55,9 +58,9 @@ public class BrokenLinksSteps {
 			Thread.sleep(50);
 			JavascriptFunctions.scrollDownByPixelValue(driver, 150);
 			Thread.sleep(5);
-			elements.hoverOnValidLink();
+			brokenLinksImages.hoverOnValidLink();
 			Thread.sleep(5);
-			elements.verifyValidLink();
+			brokenLinksImages.verifyValidLink();
 			Thread.sleep(5);
 		} catch (Throwable t) {
 			t.printStackTrace();
@@ -70,9 +73,9 @@ public class BrokenLinksSteps {
 	public void verifyBrokenLink() throws Throwable {
 		try {
 			Thread.sleep(50);
-			elements.hoverOnBrokenLink();
+			brokenLinksImages.hoverOnBrokenLink();
 			Thread.sleep(5);
-			elements.verifyBrokenLink();
+			brokenLinksImages.verifyBrokenLink();
 			Thread.sleep(5);
 		} catch (Throwable t) {
 			t.printStackTrace();

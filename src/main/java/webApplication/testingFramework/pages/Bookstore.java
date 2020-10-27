@@ -174,7 +174,7 @@ public class Bookstore {
 
 	public void isLogoutVisible() throws Throwable {
 		try {
-			gen.isElementVisible(logout);
+			gen.verifyElementVisible(logout);
 		} catch (AssertionError e) {
 			log.error("Failure! Value not true!", e.fillInStackTrace());
 			throw e;

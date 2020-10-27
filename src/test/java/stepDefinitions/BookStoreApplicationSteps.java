@@ -24,6 +24,7 @@ public final class BookStoreApplicationSteps {
 		try {
 			testContext = context;
 			homePage = testContext.pageObjectManager().homePage();
+			bookstore = testContext.pageObjectManager().bookstore();
 			driver = testContext.driver();
 		} catch (Throwable e) {
 			log.error("Error in BookStoreApplicationSteps constructors!", e.fillInStackTrace());
@@ -50,7 +51,7 @@ public final class BookStoreApplicationSteps {
 			Thread.sleep(5);
 			homePage.hoverOnBookstore();
 			Thread.sleep(5);
-			bookstore = homePage.clickBookstore();
+			homePage.clickBookstore();
 			Thread.sleep(50);
 		} catch (Throwable e) {
 			log.error("Error occurred: clickBookstore()", e.fillInStackTrace());

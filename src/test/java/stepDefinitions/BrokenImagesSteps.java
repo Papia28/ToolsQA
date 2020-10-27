@@ -4,23 +4,23 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.WebDriver;
 import webApplication.testingFramework.base.TestContext;
-import webApplication.testingFramework.pages.Elements;
+import webApplication.testingFramework.pages.elements.BrokenLinksImages;
+import webApplication.testingFramework.pages.elements.Elements;
 
 public final class BrokenImagesSteps 
 {	
 	public static Logger log = LogManager.getLogger(BrokenImagesSteps.class.getName()); 
 	private TestContext testContext = null;
 	private Elements elements = null;
-	private WebDriver driver = null;
+	private BrokenLinksImages brokenLinksImages = null;
 	
 	public BrokenImagesSteps(TestContext context)
 	{		
 		try {
 			testContext = context;
 			elements = testContext.pageObjectManager().elements();
-			driver = testContext.driver();
+			brokenLinksImages = testContext.pageObjectManager().brokenLinksImages();
 		} 
 		catch (Throwable e) 
 		{
@@ -32,11 +32,11 @@ public final class BrokenImagesSteps
 	public void validImagesVerify() throws Throwable {
 		try {
 			Thread.sleep(5);
-			elements.hoverOnValidImage();
+			brokenLinksImages.hoverOnValidImage();
 			Thread.sleep(5);
-			elements.navigateToValidImageSrc();
+			brokenLinksImages.navigateToValidImageSrc();
 			Thread.sleep(50);
-			elements.verifyValidImage();
+			brokenLinksImages.verifyValidImage();
 			Thread.sleep(5);
 			elements.getGeneric().navigateBack();
 			Thread.sleep(50);
@@ -51,11 +51,11 @@ public final class BrokenImagesSteps
 	public void brokenImagesVerify() throws Throwable {
 		try {
 			Thread.sleep(5);
-			elements.hoverOnBrokenImage();
+			brokenLinksImages.hoverOnBrokenImage();
 			Thread.sleep(5);
-			elements.navigateToBrokenImageSrc();
+			brokenLinksImages.navigateToBrokenImageSrc();
 			Thread.sleep(50);
-			elements.verifyBrokenImage();
+			brokenLinksImages.verifyBrokenImage();
 			Thread.sleep(5);
 			elements.getGeneric().navigateBack();
 			Thread.sleep(50);

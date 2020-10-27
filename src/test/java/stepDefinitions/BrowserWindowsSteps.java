@@ -37,6 +37,7 @@ public final class BrowserWindowsSteps
 			homePage = testContext.pageObjectManager().homePage();
 			driver = testContext.driver();
 			gen = homePage.genericFunctions();
+			alertsFramesWindows = testContext.pageObjectManager().alertsFramesWindows();
 		} 
 		catch (Throwable e) 
 		{
@@ -58,7 +59,7 @@ public final class BrowserWindowsSteps
 			//hover on the element to be clicked
 			homePage.hoverOnAlerts();
 			Thread.sleep(10);
-			alertsFramesWindows = homePage.clickAlerts();
+			homePage.clickAlerts();
 			
 			//take screenshot of the element to be clicked
 			stepInfo.addScreenCaptureFromPath(Screenshots.saveScreenshot(driver, "AlertsFramesWindows_Click"));
